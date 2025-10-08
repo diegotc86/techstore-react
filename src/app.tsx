@@ -83,7 +83,10 @@ export function App() {
   useEffect(() => {
     async function fetchUser() {
       const token = localStorage.getItem("token");
-      if (!token || user) return;
+      if (!token || user) {
+        setLoading(false);
+        return;
+      }
 
       setLoading(true);
       const newUser = await getUser(token);
