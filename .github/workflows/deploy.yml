@@ -1,0 +1,35 @@
+name: "Deploy to AWS S3"
+# Cuando la rama "main" se actualice...
+on:
+  push:
+    branches: ["main"]
+
+jobs:
+  Deploy:
+    # Generar maquina virtual (linux)
+    runs-on: ubuntu-latest
+    steps:
+      # Instalar Node
+      - name: Usar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.x
+      # Copiar nuestro codigo de React
+      - name: Copiar codigo fuente
+        uses: actions/checkout@v4
+      # Instalar dependencias (npm install)
+      - name: Instalar dependencias
+        run: npm install
+      # Hacer build (npm run build)
+      - name: Hacer build
+        run: npm run build
+      # Configurar AWS CLI con nuestras credenciales
+      - name: Configurar credenciales de AWS
+        uses: aws-actions/configure-aws-credentials@v5.1.0
+        with:
+          aws-region: us-east-2
+          aws-access-key-id: ${{ secrets.KEY_ID }}
+          aws-secret-access-key: ${{ secrets.SECRET_ACCESS_KEY }}
+      # Sincronizar la carpeta 'dist' con el bucket S3
+      - name: Deployar proyecto en S3
+        run: aws s3 sync dist s3://techstore-138264596751 --delete
