@@ -8,7 +8,7 @@ export function Hero() {
       <div className="px-4 max-w-7xl mx-auto md:px-8 text-center text-white">
         <div className="max-w-3xl mx-auto">
           <h2 className="font-bold text-4xl mb-4 md:text-6xl text-balance">
-            Nuevos productos disponibles
+            Nuevo Mensaje de Prueba
           </h2>
           <p className="text-xl mb-8 text-balance">
             Un pequeño lote de increíbles productos acaba de llegar. Agrega tus
